@@ -10,7 +10,8 @@ public enum GenericErrorCode implements ErrorCode {
      * <b>Cause:</b> This error could have occurred due to undetermined runtime errors.<br>
      * <b>Action: None</b><br>
      */
-    GEN_001("GEN-001", "An unexpected error occurred. Please contact System Administrator");
+    GEN_001("GEN-001", "An unexpected error occurred. Please contact System Administrator")
+    ,ATHR_001("ATHR-001", "User has not signed in");
 
     private static final Map<String, GenericErrorCode> LOOKUP = new HashMap<String, GenericErrorCode>();
 
