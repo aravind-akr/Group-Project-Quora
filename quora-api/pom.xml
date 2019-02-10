@@ -11,7 +11,19 @@
 
     <artifactId>quora-api</artifactId>
 
+
+    <properties>
+        <sql-maven-plugin.version>1.5</sql-maven-plugin.version>
+        <postgresql.driver.version>42.2.2</postgresql.driver.version>
+        <postgresql.driver.name>org.postgresql.Driver</postgresql.driver.name>
+
+    </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>${postgresql.driver.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
