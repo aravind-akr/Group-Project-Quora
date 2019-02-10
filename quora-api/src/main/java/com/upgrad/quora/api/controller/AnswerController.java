@@ -28,9 +28,9 @@ public class AnswerController {
     @Autowired
     private QuestionService questionService;
 
-    @RequestMapping(value = "/question/{questionId}/answer/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<AnswerResponse> createAnswer(@RequestHeader("authorization") final String accessToken,
-                                                       @RequestBody AnswerRequest answerRequest,
+    @RequestMapping(value = "/question/{questionId}/answer/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<AnswerResponse> createAnswer(final AnswerRequest answerRequest,
+                                                       @RequestHeader("authorization") final String accessToken,
                                                        @PathVariable("questionId") final String questionId) throws AuthorizationFailedException, InvalidQuestionException {
         final UserEntity userEntity = answerService.getUser(accessToken);
         final QuestionEntity questionEntity = questionService.getQuestionByQuestionId(questionId);
@@ -45,8 +45,8 @@ public class AnswerController {
         return new ResponseEntity<AnswerResponse>(answerResponse, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/answer/edit/{answerId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<AnswerEditResponse> editAnswerContent(@RequestBody AnswerEditRequest answerEditRequest,
+    @RequestMapping(value = "/answer/edit/{answerId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<AnswerEditResponse> editAnswerContent(final AnswerEditRequest answerEditRequest,
                                                                 @PathVariable("answerId") final String answerId,
                                                                 @RequestHeader("authorization") final String accessToken) throws AuthorizationFailedException, AnswerNotFoundException {
         final String questionContent = answerEditRequest.getContent();

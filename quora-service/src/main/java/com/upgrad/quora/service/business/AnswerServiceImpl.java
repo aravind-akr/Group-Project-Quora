@@ -49,7 +49,11 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public AnswerEntity createAnswer(final AnswerEntity answerEntity) {
+    public AnswerEntity createAnswer(final AnswerEntity answerEntity) throws InvalidQuestionException {
+        if (answerEntity.getQuestionEntity() == null) {
+            throw new InvalidQuestionException("QUES-001", "The question with entered uuid whose details are to be " +
+                    "seen does not exist");
+        }
         return answerDao.createAnswer(answerEntity);
     }
 

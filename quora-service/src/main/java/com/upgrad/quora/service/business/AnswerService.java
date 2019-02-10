@@ -9,7 +9,7 @@ import com.upgrad.quora.service.exception.InvalidQuestionException;
 import java.util.List;
 
 public interface AnswerService {
-    AnswerEntity createAnswer(final AnswerEntity answerEntity);
+    AnswerEntity createAnswer(final AnswerEntity answerEntity) throws InvalidQuestionException;
 
     UserEntity getUser(final String accessToken) throws AuthorizationFailedException;
 
