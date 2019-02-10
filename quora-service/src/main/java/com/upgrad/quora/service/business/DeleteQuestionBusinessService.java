@@ -47,7 +47,7 @@ public class DeleteQuestionBusinessService {
     @Transactional(propagation = Propagation.REQUIRED)
     public String deleteQuestion(final QuestionEntity questionEntityToDelete, final UserEntity signedinUserEntity ) throws AuthorizationFailedException {
 
-        if (signedinUserEntity.getRole().equalsIgnoreCase("admin")||(questionEntityToDelete.getUser_id().getUserName()==signedinUserEntity.getUserName())) {
+        if (signedinUserEntity.getRole().equalsIgnoreCase("admin")||(questionEntityToDelete.getUser_id().getUsername()==signedinUserEntity.getUsername())) {
 
             return questionDao.deleteQuestion(questionEntityToDelete);
         }

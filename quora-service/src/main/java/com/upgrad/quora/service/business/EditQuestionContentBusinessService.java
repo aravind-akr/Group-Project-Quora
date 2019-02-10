@@ -32,7 +32,7 @@ public class EditQuestionContentBusinessService {
         if (existingQuestionEntity == null) {
             throw new InvalidQuestionException("QUES-001", "Entered question uuid does not exist");
         }
-        if (existingQuestionEntity.getUser_id().getUserName().equalsIgnoreCase(userAuthTokenEntity.getUser_id().getUserName())) {
+        if (existingQuestionEntity.getUser_id().getUsername().equalsIgnoreCase(userAuthTokenEntity.getUser_id().getUsername())) {
             return questionDao.updateQuestion(existingQuestionEntity);
         } else {
             throw new AuthorizationFailedException("ATHR-003", "Only the question owner can edit the question");
