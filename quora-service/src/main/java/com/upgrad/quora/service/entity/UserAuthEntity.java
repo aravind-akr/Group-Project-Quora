@@ -1,5 +1,9 @@
 package com.upgrad.quora.service.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,9 +15,9 @@ import java.math.BigInteger;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name="user_auth",schema = "quora")
+@Table(name = "user_auth", schema = "quora")
 @NamedQueries({
-        @NamedQuery(name = "userAuthTokenByAccessToken", query = "select ut from UserAuthEntity ut where ut.accessToken = :accessToken ")
+        @NamedQuery(name = "userAuthTokenByAccessToken", query = "select ut from UserAuthEntity ut where ut.access_token = :access_token ")
 })
 public class UserAuthEntity implements Serializable {
 
@@ -31,7 +35,7 @@ public class UserAuthEntity implements Serializable {
     @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @Size(max = 200)
-    private int user_id;
+    private UserEntity user;
 
     @Column(name = "access_token")
     @NotNull
@@ -65,12 +69,12 @@ public class UserAuthEntity implements Serializable {
         this.uuid = uuid;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public String getAccess_token() {
@@ -103,5 +107,20 @@ public class UserAuthEntity implements Serializable {
 
     public void setLogout_at(ZonedDateTime logout_at) {
         this.logout_at = logout_at;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return new EqualsBuilder().append(this, obj).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this).hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
