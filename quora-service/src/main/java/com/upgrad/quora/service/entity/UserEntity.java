@@ -12,7 +12,8 @@ import java.io.Serializable;
 @NamedQueries(
         {
                 @NamedQuery(name = "userByUuid", query = "select u from UserEntity u where u.uuid = :uuid"),
-                @NamedQuery(name = "userByEmail", query = "select u from UserEntity u where u.email =:email")
+                @NamedQuery(name = "userByEmail", query = "select u from UserEntity u where u.email =:email"),
+                @NamedQuery(name = "userByUsername", query = "select u from UserEntity u where u.username =:username")
         }
 )
 public class UserEntity implements Serializable {
@@ -39,7 +40,7 @@ public class UserEntity implements Serializable {
 
     @Column(name = "username", unique = true)
     @Size(max = 30)
-    private String userName;
+    private String username;
 
     @Column(name = "email",unique = true)
     @Size(max = 50)
@@ -112,12 +113,12 @@ public class UserEntity implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
