@@ -1,6 +1,9 @@
 package com.upgrad.quora.service.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -41,7 +44,7 @@ public class UserEntity implements Serializable {
     @Size(max = 30)
     private String userName;
 
-    @Column(name = "email",unique = true)
+    @Column(name = "email", unique = true)
     @Size(max = 50)
     private String email;
 
@@ -74,11 +77,6 @@ public class UserEntity implements Serializable {
     @Column(name = "contactnumber")
     @Size(max = 30)
     private String contactNumber;
-
-    @Override
-    public boolean equals(Object obj) {
-        return new EqualsBuilder().append(this, obj).isEquals();
-    }
 
     public Integer getUser_id() {
         return user_id;
@@ -182,5 +180,20 @@ public class UserEntity implements Serializable {
 
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return new EqualsBuilder().append(this, obj).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this).hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
