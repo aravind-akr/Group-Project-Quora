@@ -1,5 +1,9 @@
 package com.upgrad.quora.service.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,6 +15,10 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "answer", schema = "quora")
+@NamedQueries({
+        @NamedQuery(name = "getAllAnswerByQuestionID", query = "select a from AnswerEntity a where a.questionEntity = :questionID "),
+        @NamedQuery(name = "answerByUuid", query = "select a from AnswerEntity a where a.uuid = :uuid ")
+})
 public class AnswerEntity implements Serializable {
 
     @Id
@@ -35,12 +43,12 @@ public class AnswerEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private String user_id;
+    private UserEntity user;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private String question_id;
+    private QuestionEntity questionEntity;
 
 
     public Integer getAnswer_id() {
@@ -75,19 +83,34 @@ public class AnswerEntity implements Serializable {
         this.date = date;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public String getQuestion_id() {
-        return question_id;
+    public QuestionEntity getQuestionEntity() {
+        return questionEntity;
     }
 
-    public void setQuestion_id(String question_id) {
-        this.question_id = question_id;
+    public void setQuestionEntity(QuestionEntity questionEntity) {
+        this.questionEntity = questionEntity;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return new EqualsBuilder().append(this, obj).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder().append(this).hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
